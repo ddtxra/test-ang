@@ -1,0 +1,120 @@
+<div id="result" ng-controller="ResultCtrl" class="row resultparams" style="position:relative">
+
+    <!-- RESULT HEADERS -->
+		<nav style="position: absolute;" np-affix="120" class="navbar navbar-fixed-top navbar-default navbar-nextprot-result">
+		  <div class="container-fluid">
+
+		    	<!-- DISPLAY RESULT INFO -->
+					<ul class="nav navbar-nav  " style="">
+						<li class="dropdown">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="">Show <b>{{start ++ 1}}</b> to <b>{{ ((start + rows) > Search.resultCount) ? Search.resultCount : (start + rows) }}</b> <span class="hidden-xs">of {{Search.resultCount}} </span><b class="caret"></b></a>
+							<ul class="dropdown-menu">
+	    						<li><a ng-class="{bold:Search.params.rows=='50'||!Search.params.rows}" href="" ng-click="params({rows:50})">50 rows</a></li>
+								<li><a ng-class="{bold:Search.params.rows=='100'}" href="" ng-click="params({rows:100})">100 rows</a></li>
+								<li><a ng-class="{bold:Search.params.rows=='150'}" href="" ng-click="params({rows:150})">150 rows</a></li>
+								<li><a ng-class="{bold:Search.params.rows=='200'}" href="" ng-click="params({rows:200})">200 rows</a></li>
+							</ul>
+						</li>
+					</ul>
+					<div class="col-xs-offset-2 col-sm-offset-3">
+						<form name="paging" ng-submit="manualPaginate(paging)" class="navbar-form navbar-left" style="padding-right:5px"
+									ng-if="Search.result.pagination.numPages" id="pageInput" ng-show="Search.result.pages.length > 1">
+		            <!--   looks like this breaks the paging check if new version of angular is ok-->
+		            <input type="number" min="1" class="bold black -form-control paginate" ng-model="Search.result.pagination.current" > 
+		            <!-- PAGINATE -->
+						</form>
+
+						<p class="navbar-text" style="margin-left:0px" ng-show="Search.result.pages.length > 1">
+							of {{ Search.result.pagination.numPages | number:0}} page(s)
+						</p>
+
+						<div class="btn-group navbar-form nopadding" >
+				  		<a href="" ng-click="Search.session.summary=true" id="search-summary" class="btn  btn-navbar"
+				  							 ng-class="!Search.session.summary? 'btn-navbar':'btn-navbar-selected'">Summary</a>
+				  		<a href="" ng-click="Search.session.summary=false" id="search-details" class="btn  btn-navbar"
+				  							 ng-class="Search.session.summary? 'btn-navbar':'btn-navbar-selected'">Details</a>
+						</div>
+
+
+						<!-- EXPORT -->
+						<!--					  -->
+						<button ng-show="Search.result.params.entity == 'proteins'" type="button" bs-modal="'partials/export/export-modal.html'"
+								ng-click="setExportParameters()" class="btn btn-link navbar-btn btn-navbar-selected">
+                            <div>Download&nbsp;<i class="icon-download"></i></div>
+                        </button>
+
+                        <ul class="nav navbar-nav navbar-right">
+
+							<!-- SORTING -->
+							<li class="dropdown " ng-include="getSortTemplateByEntity()"></li>
+
+						</ul>
+					</div>
+
+
+		  </div>
+		</nav>          
+
+    <div class="col-xs-12 col-sm-3 nopadding">
+        <!--RESULT SIDEBAR-->
+        <div class="resultfilters hidden-xs" np-affix="150">
+            <ul ng-show="!Search.params.listId"  class="list-unstyled">
+                <!-- header -->
+                <li><h5 class="lead">Filters</h5></li>
+                <li>For {{Search.result.display}} with:</li>
+                <!-- content -->
+                <li class="solrp " ng-repeat="filter in Search.result.filters"
+                    ng-class="active(filter.name,'filter')">
+                    <a ng-show="filter.count" class="" ng-click="updateUrlSearchPart({filter:filter.name})" href="">{{Search.result.ontology[filter.name]}}
+                        <span class=""> ({{filter.count }})</span> <i ng-class="active(filter.name,'filter')&&'icon-remove'"></i>
+                    </a>
+                </li>
+                <input id="filters" class="form-control" type="hidden" ng-model="Search.params.filter"
+                       autocomplete="off">
+            </ul>
+			<ul ng-show="Search.params.listId" class="list-unstyled">
+				<!-- header -->
+				<li><h5 class="lead">List info</h5>
+				<li>name: {{export.userList.name}}</li>
+				<li>id: {{export.userList.publicId}}</li>
+			</ul>
+			<ul ng-show="Search.params.listId" class="list-unstyled">
+				<!-- header -->
+				<li><h5 class="lead">Content</h5></li>
+				<!-- content -->
+				<li ng-repeat="filter in Search.result.filters"
+					ng-class="active(filter.name,'filter')">
+					{{Search.result.ontology[filter.name]}}
+						<span class=""> ({{filter.count }})</span> <i ng-class="active(filter.name,'filter')&&'icon-remove'"></i>
+
+				</li>
+			</ul>
+        </div>
+    </div>
+    <div class="col-xs-12  col-sm-9 result-content">
+
+		<!-- RESULT CONTENT -->
+		<div ng-show="Search.result.message&&(Search.params.query||Search.params.sparql)" class="row">
+			<b>{{Search.result.message}} </b>
+		</div>
+
+  	  <div ng-include="getResultTemplateByEntity()"></div>
+
+		<!-- Loading spinner ... -->
+		<div class="col-lg-offset-3" ng-show="Search.loading">
+			<div align="center" class="throbber" style="z-index:1000"></div>
+		</div>
+
+		<!-- PAGINATE -->
+      <nav ng-show="!Search.loading && Search.result.pages.length>1">
+        <ul class=" pagination pagination-sm">
+              <li ng-if="Search.result.pagination.prev.visible" ng-class="{disabled:!Search.result.pagination.prev}"><a href="" ng-click="params({start:Search.result.pagination.prev.start})">«</a></li>
+              <li ng-repeat="page in Search.result.pages" ng-class="{disabled:page.current}"><a href="" ng-click="params({start:((page.offset-1) * Search.result.rows)})">{{page.offset}}</a></li>
+              <li ng-if="Search.result.pagination.next.visible" ng-class="{disabled:!Search.result.pagination.next}"><a href="" ng-click="params({start:Search.result.pagination.next.start})">»</a></li>
+          </ul>
+      </nav>
+
+
+
+	</div>
+</div>

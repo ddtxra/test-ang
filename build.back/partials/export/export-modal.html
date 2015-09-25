@@ -1,0 +1,48 @@
+<div class="modal-dialog" ng-controller="ExportCtrl">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="text-center">{{export.exportTitle}}</h4>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <div class="dropdown">
+                        <label class="">Format: </label>
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                                data-toggle="dropdown" aria-expanded="true">
+                            {{selectedFormat}}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li ng-repeat="format in getFormats()"><a href="" ng-click="setSelectedFormat(format)">{{format}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown" ng-hide="isSubPartHidden">
+                        <label class="">Sub-Part</label>
+                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2"
+                                data-toggle="dropdown" aria-expanded="true">
+                            {{selectedView}}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li ng-repeat="view in views"><a href="" ng-click="setSelectedView(view)">{{view}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+            <div class="bs-example" data-example-id="simple-small">
+                <p>
+                    Click on the download button or simply request the API by using the link below:
+                </p>
+            </div>
+            <div class="highlight">
+                <pre><code class="language-html link" data-lang="html"><span class="nt"></span><a target="_blank" href="{{getFileExportURL()}}" ng-click="gaTrackDownloadEvent(false)">{{getFileExportURL()}}</a></span></code></pre>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-primary" href="{{getFileExportURL()}}" target="_blank" ng-click="gaTrackDownloadEvent(true)">Download</a>
+        </div>
+    </div>
+</div>

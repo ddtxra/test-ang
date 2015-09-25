@@ -1,0 +1,181 @@
+body{
+  font-family: 'Lato', sans-serif;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+display: none !important;
+}
+
+a.inactive {
+    pointer-events: none;
+    cursor: default;
+    color: #666;
+}
+
+.link{
+  color:#0088CC;
+  cursor: pointer;
+}
+
+.link:hover{
+  text-decoration:underline;
+}
+
+.blue {
+    color: blue;
+}
+
+.green {
+    color: green;
+}
+
+.gray {
+    color: #888;
+}
+
+.gray2 {
+    color: #666;
+}
+
+.small {
+    font-size: 93%;
+}
+
+.bold {
+    font-weight: bold !important;
+}
+
+.align-right{
+    text-align: right;
+}
+
+.nomargin {
+    margin: 0px;
+}
+
+.nopadding {
+    padding: 0px;
+}
+
+.np-alert {
+    border-radius: 0 0 6px 6px !important;
+    min-width: 30%;
+    position: fixed;
+    top: 0;
+}
+
+.affix {
+    position: fixed !important;
+    top: 40px;
+    left: 0px;
+    right: 0px;
+    z-index: 100;
+}
+
+.error {
+    position: fixed;
+    top: 46px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    left: 20%;
+    right: 20%;
+    font-weight: bold;
+    z-index: 2000;
+}
+
+.affix-top {
+    z-index: 100;
+}
+
+
+
+.fade-out.ng-hide-add {
+    -webkit-animation: fadeOut 0.5s;
+    display: block !important;
+}
+
+.fade-in.ng-hide-remove {
+    -webkit-animation: fadeIn 0.5s;
+    display: block !important;
+}
+
+.fade-out-left.ng-hide-add {
+    -webkit-animation: fadeOutLeft 0.5s;
+    display: block !important;
+}
+
+.fade-in-left.ng-hide-remove {
+    -webkit-animation: fadeInLeft 0.5s;
+    display: block !important;
+}
+
+.fade-out-right.ng-hide-add {
+    -webkit-animation: fadeOutRight 0.5s;
+    display: block !important;
+}
+
+.fade-in-right.ng-hide-remove {
+    -webkit-animation: fadeInRight 0.5s;
+    display: block !important;
+}
+
+.slide-out-left.ng-hide-add {
+    -webkit-animation: slideOutLeft 1s;
+    display: block !important;
+}
+
+.slide-in-left.ng-hide-remove {
+    -webkit-animation: slideInLeft 1s;
+    display: block !important;
+}
+
+.slide-out-right.ng-hide-add {
+    -webkit-animation: slideOutRight 1s;
+    display: block !important;
+}
+
+.slide-in-right.ng-hide-remove {
+    -webkit-animation: slideInRight 1s;
+    display: block !important;
+}
+
+.footer {
+  bottom: 0;
+  position:absolute;
+  margin-left:auto;
+  margin-right:auto;
+  left:0;
+  right:0;
+}
+
+.flashmsg {
+    /* position: fixed; when position is fixed it does not show */
+    margin-top:10px;
+    margin-left:auto;
+    margin-right:auto;
+    width:70%;
+    -padding: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    border-width: 1px;
+    border-color: lightgray;
+}
+
+.label-as-badge {
+    border-radius: 1em;
+    margin-right: 2px;
+    background: #ccf;
+    color: #05a;
+    font-size: 10px;
+}
+
+.details-query-popup {
+    font-size:13px;
+}

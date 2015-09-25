@@ -1,0 +1,69 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>{{modal.options[modal.type].title}}Application</h3>
+        </div>
+        <div class="modal-body">
+            <form name="form">
+                <div class="form-group">
+                    <label>Application name: </label>
+                    <input type="text" placeholder="Provide a meaningful name" ng-model="selected.name" focus="" class="form-control">
+                    
+                </div>
+                <div class="form-group">
+                    <label>Organisation / Institute: </label>
+                    <input type="text" placeholder="The name of the organisation / institute or university if applicable" ng-model="selected.name" focus="" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Responsible person: </label>
+                    <input type="text" placeholder="The name of the responsible person" ng-model="application.responsibleemail" focus="" class="form-control">
+                    
+                </div>
+                <div class="form-group">
+                    <label>Responsible email: </label>
+                    <input type="text" placeholder="The email of the responsible person" ng-model="selected.name" focus="" class="form-control">
+                    
+                </div>
+                <div class="form-group">
+                    <label>Description: </label>                    
+                    <textarea placeholder="Provide a meaningful description..." ng-model="selected.description" class="form-control" rows="5"></textarea>                    
+                </div>
+                <div class="form-group">
+                    <label>Website: </label>
+                    <input type="text" placeholder="If you have a related website" ng-model="application.responsiblename" focus="" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Grants: </label>
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle btn-default btn-sm" data-toggle="dropdown" href="">
+                            API access <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="user-profile">API access</a></li>
+                            <li><a href="user-applications">SPARQL endpoint access</a></li>
+                            <li><a href="user-applications">API + SPARQL endpoint access</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Key: </label>
+                    <input type="text" value="AFLSKBNASLKF0FKSABFASKJBKASB" disabled="true" class="form-control">
+                    
+                </div>
+                <div class="form-group">
+                    <label>Valid until: </label>
+                    <input type="text" value="31/12/2015" disabled="true" class="form-control">
+                    
+                </div>
+            </form>
+            <div>
+                Try it! wget http://localhost/....userkey=FBJAKJFBASL
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="saveModal(dismiss(), 'action')" ng-disabled="!selected.name">Save</button>
+            <button class="btn btn-default" ng-click="modalDissmiss(dismiss())">Cancel</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en" ng-app="np" xmlns:flash="">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="neXtProt,UniProt,Human,Proteins,Proteome,Proteomics">
+    <meta name="description" content="A knowledge platform on human proteins. It strives to be a comprehensive resource that provides a variety of types of information on human proteins.">
+    <meta name="author" content="Calipho Team - SIB - Swiss Institute of Bioinformatics">
+    <meta name="fragment" content="!">
+    <meta http-equiv="expires" content="0">
+
+    <!--<base href="/protosearch/" />-->
+    <base href="/">
+
+    <title>neXtProt - exploring the universe of human proteins</title>
+
+    <!--[if lte IE 7]>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/json2/20110223/json2.js"></script>
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!--  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:600' rel='stylesheet' type='text/css'>-->
+
+    <link rel="stylesheet" href="css/vendor.css?release=1443109386819">
+    <link rel="stylesheet" href="css/app.css?release=1443109386819">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+</head>
+
+<body ng-clock="" class="preview fill" data-spy="scroll" data-target=".subnav" data-offset="90"
+      ng-controller="SearchCtrl" np-background="#main">
+
+<!-- Navbar ================================================== -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand navbar-logo" href="/"><img src="/img/np-logo.png">neXtProt Search</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" ng-controller="HelpCtrl">
+            <ul class="nav navbar-nav">
+
+                <!-- Ressources -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">Resources <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <!-- Learn -->
+                        <li ng-class=""><a href="{{'search' | getNeXtProtUrl}}" ng-click="routingOutside('ui')">Search</a></li>
+                        <li ng-class=""><a href="{{'snorql' | getNeXtProtUrl}}" ng-click="routingOutside('snorql')">Snorql</a></li>
+                        <li ng-class=""><a href="{{'api' | getNeXtProtUrl}}" ng-click="routingOutside('api')">API</a></li>
+                    </ul>
+                </li>
+
+                    <!-- Help dropdown -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">Help <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <!-- Learn -->
+                        <li ng-class="{'active':isActiveDoc('/help/learn-simple-search')}"><a
+                                href="/help/learn-simple-search">Simple search</a></li>
+                        <li ng-class="{'active':isActiveDoc('/help/learn-advanced-search')}"><a
+                                href="/help/learn-advanced-search">Advanced search</a></li>
+                        <li><a href="#"></a></li>
+                        <li ng-class="{'active':isActiveDoc('/help/search-results')}"><a
+                                href="/help/learn-search-results">Search results</a></li>
+                        <li><a href="#"></a></li>
+                        <li ng-class="{'active':isActiveDoc('/help/doc/introduction')}"><a
+                                ng-href="/help/doc/introduction">RDF help</a></li>
+                        <li><a href="#"></a></li>
+                        <li class="divider"></li>
+                        <li ng-class="{'active':isActiveDoc('/help/learn-protein-lists')}"><a
+                                href="/help/learn-protein-lists">Protein Lists</a></li>
+                        <li class="divider"></li>
+                        <li ng-class="{'active':isActiveDoc('/help/learn-developer-api')}"><a
+                                href="/help/learn-developer-api">Developer API</a></li>
+                       <!--  <li><a target="_blank" href="http://bl.ocks.org/calipho-sib">Look at our bl.ocks.org</a></li> -->
+                        <li class="divider"></li>
+
+                        <!-- FAQ
+                        <li ng-class="{'active':isActiveDoc('/pages/faq')}"><a href="/pages/faq">FAQ</a></li>
+                        -->
+
+                        <!-- News -->
+                        <li ng-class="{'active':isActiveDoc('/what-is-new')}"><a
+                                href="/what-is-new">What's new?</a></li>
+                        <!-- Known issues -->
+                        <li ng-class="{'active':isActiveDoc('/known-issues')}"><a
+                                href="/known-issues">Known issues</a></li>
+
+                        <!-- Found a bug -->
+                        <li ng-class=""><a target="_blank" href="https://github.com/calipho-sib/nextprot-ui/issues">Found
+                            a bug?<i class="icon-github"></i></a></li>
+                    </ul>
+                </li>
+
+                <li ng-class=""><a href="/about">About</a></li>
+                <li ng-class=""><a href="mailto:support@nextprot.org?subject=[neXtProt%20Search]">Contact us</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+                <li>
+                    <a title="My lists" ng-click="goToUser('lists')" type="button" class="link"><i class="icon-list-alt"></i></a>
+                </li>
+
+                <li>
+                    <a title="My queries" ng-click="goToUser('queries')" type="button" class="link"><i class="icon-star"></i></a>
+                </li>
+
+
+                <!-- login button -->
+                <li ng-if="!user.profile.email">
+                    <a href='' type="button" class="link" ng-click="login()">Login</a>
+                </li>
+
+                <!-- once logged in user resources -->
+                <li class="dropdown" ng-if="user.profile.email" ng-cloak>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user.profile.name ||
+                        user.profile.email}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <!--<li><a href="/user">My profile</a></li>-->
+                        <li><a href="/user/protein/lists">My protein lists</a></li>
+                        <li><a href="/user/queries">My queries</a></li>
+                        <!-- <li><a href="/user/applications">My applications</a></li>-->
+                        <li class="divider"></li>
+                        <li><a href="#" ng-click="logout()">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+
+
+</nav>
+
+<!--
+
+<nav class="navbar navbar-default navbar-fixed-top " role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+          <div class="navbar-header"><a class="navbar-brand" href="#" ng-click="reset()">neXtProt</a></div>
+            <a class="btn navbar-btn btn-default" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <div class="collapse navbar-collapse" id="main-menu">
+                <ul class="nav navbar-nav" id="main-menu-left">
+                    <li><a ng-href="#" ng-click="reset()">Home</a></li>
+                    <li><a href="proteins/lists">Lists &amp; Export</a>
+                    </li><li><a href="rdf-help">RDF Help</a>
+                    </li><li><a href="api-info">API Help</a>
+                </li></ul>
+
+                <div class="btn-group pull-right" ng-if="user.isAnonymous()">
+                    <a class="btn dropdown-toggle btn-default btn-sm" data-toggle="dropdown" href="">
+                        {{user.profile.name}}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="user-profile">Profile</a></li>
+                        <li><a href="user-applications">Applications</a></li>
+                        <li><a href="#" ng-click="logout()">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group pull-right" /*ng-if="!user.isAnonymous()"*/>
+                    <a class="btn dropdown-toggle btn-default btn-sm" data-toggle="dropdown" href="#" ng-click="login()">
+                        Login
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+-->
+
+<div ng-show="message" class=" error ng-cloak" ng-cloak>
+    <div class="np-alert alert alert-error alert-warning">{{Search.result.error}} {{message}}</div>
+</div>
+
+<flash:messages></flash:messages>
+
+<!-- Masthead
+================================================== -->
+<div ng-if="isSearchBarVisible()" ng-include="'partials/search/search-bar.html'" class="container-fluid"></div>
+
+
+<div id="main" class="container-fluid" ng-view="">
+</div>
+
+<div ng-include="'partials/footer.html'"></div>
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script type="text/javascript">
+    //
+    // global settings for angular-nexprot-ui-help
+    var npHelpSettings = {
+        baseUrl: 'https://api.nextprot.org'
+    }
+</script>
+<script defer src="js/vendor.js?release=1443109386819"></script>
+<script defer src="js/app.js?release=1443109386819"></script>
+<script>
+    window.brunch = window.brunch || {};
+    window.brunch['auto-reload'] = {
+        enabled: true
+    };
+</script>
+
+
+</body>
+</html>
